@@ -1,0 +1,27 @@
+{
+  "name": "famous-imageview",
+  "version": "0.0.1",
+  "homepage": "https://github.com/IjzerenHein/famous-imageview",
+  "authors": [
+    "Hein Rutjes <hrutjes@gmail.com>"
+  ],
+  "description": "Displays an image using a div and background-image rather than a img-tag",
+  "keywords": [
+    "famo.us",
+    "famous"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "examples",
+    "docs",
+    "Gruntfile.js"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.11",
+    "famous": "~0.2.0"
+  }
+}
