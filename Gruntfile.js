@@ -49,7 +49,7 @@ module.exports = function(grunt) {
           contentsTitle: 'Example Documentation',
           contentsFile: 'readme.md',
         },
-        src: ['./ImageView.js'],
+        src: ['./BkImageSurface.js'],
         dest: 'docs'
       },
       /*publish: {

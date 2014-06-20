@@ -1,11 +1,10 @@
-famous-imageview
+famous-bkimagesurface
 ==========
 
-Image-view for famo.us which uses a surface with a background-image to support different sizing
-strategies such as ScaleToFit and FitToScale.
+BkImageSurface adds support for sizing-strategies such as AspectFit and AspectFill for displaying images with famo.us.
+It uses a 'div' with a background-image rather than a 'img' tag.
 
-Can be used as a drop-in replacement for ImageSurface, in case the the size of the div is not derived 
-from the image.
+Can be used as a drop-in replacement for ImageSurface, *in case the the size of the div is **not derived** from the image*.
 
 ## Demo
 
@@ -16,170 +15,88 @@ from the image.
 
 Install using bower:
 	
-	bower install famous-imageview
+	bower install IjzerenHein/famous-bkimagesurface
 	
 ## Getting started
 
-Add famous-imageview to the requirejs paths config:
+Add bkimagesurface to the requirejs paths config:
 
 ```javascript
 require.config({
     paths: {
         ...
-        'famous-imageview': 'bower_components/famous-imageview',
+        'famous-bkimagesurface': 'bower_components/famous-bkimagesurface',
         ...
     }
 });
 ```
 
-Example of how to create a ImageView:
+Example of how to create a BkImageSurface:
 
 ```javascript
-var ImageView = require('famous-imageview/ImageView');
+var BkImageSurface = require('famous-bkimagesurface/BkImageSurface');
 
-var imageView = new ImageView({
-    mapOptions: {
-        zoom: 3,
-        center: new google.maps.LatLng(51.4484855, 5.451478),
-        mapTypeId: google.maps.MapTypeId.TERRAIN
-    }
+var imageSurface = new BkImageSurface({
+    content: 'myimage.png',
+    sizeMode: BkImageSurface.SizeMode.ASPECTFILL
 });
-this.add(imageView);
-
-## Documentation
-
-To access the underlying google.maps.Map object, use MapView.getMap(). The Map-object
-is only safely accessible after the 'load' event, because the DOM-object must first be created and google-maps need to load.
-
-```javascript
-mapView.on('load', function () {
-    var map = mapView.getMap();
-    ...
-});
+this.add(imageSurface);
 ```
 
-##### Panning the map using transitions
-
-To pan the map using famo.us transitions, use MapView.setPosition().
-Transitions are chained, so you can create paths that the map will follow.
+or use the setter-functions:
 
 ```javascript
-mapView.setPosition(
-    new google.maps.LatLng(51.4484855, 5.451478),
-    { duration: 5000, curve: Easing.outBack },
-    function () {
-        mapView.getMap().setZoom(7)
-    }
-);
+var imageSurface = new BkImageSurface();
+imageSurface.setContent('http://www.myimage.png');
+imageSurface.setSizeMode(BkImageSurface.SizeMode.ASPECTFIT);
 ```
 
-##### Linking a renderable to a geographical coordinate on the map
+## Sizing-modes
 
-To place a renderable on the map like a marker, use MapModifier or MapStateModifier:
+|Value|Description|
+|---|---|
+|SizeMode.FILL|Fills the image to the size of the div.|
+|SizeMode.ASPECTFILL|Fills the div with the image while keeping correct image aspect ratio (crops if neccesary).|
+|SizeMode.ASPECTFIT|Fits the whole image in the div while keeping correct image aspect ratio.|
+|SizeMode.CENTER|Centers the image in the div and keeps original image dimensions  **(default)**.|
+|SizeMode.LEFT|Left aligns the image in the div.|
+|SizeMode.RIGHT|Right aligns the image in the div.|
+|SizeMode.TOP|Top aligns the image in the div.|
+|SizeMode.BOTTOM|Bottom aligns the image in the div.|
+|SizeMode.TOPLEFT|Aligns the image in the top-left corner of the div.|
+|SizeMode.TOPRIGHT|Aligns the image in the top-right corner of the div.|
+|SizeMode.BOTTOMLEFT|Aligns the image in the bottom-left corner of the div.|
+|SizeMode.BOTTOMRIGHT|Aligns the image in the bottom-right corner of the div.|
+
+## Image repeat
+
+BkImageSurface attempts to be a drop-in-replacement for ImageSurface and therefore disables image-repeating by default.
+
+To enable image-repeating on the div, use RepeatMode:
 
 ```javascript
-MapModifier = require('famous-map/MapModifier');
+var imageSurface = new BkImageSurface({
+    repeatMode: BkImageSurface.RepeatMode.HORIZONTAL
+});
 
-var surface = new Surface({
-    size: [50, 50],
-    properties: {
-        backgroundColor: 'white'
-    }
-});
-var modifier = new Modifier({
-    align: [0, 0],
-    origin: [0.5, 0.5]
-});
-var mapModifier = new MapModifier({
-    mapView: mapView,
-    position: new google.maps.LatLng(51.4484855, 5.451478)
-});
-this.add(mapModifier).add(modifier).add(surface);
+imageSurface.setRepeatMode(BkImageSurface.RepeatMode.BOTH);
 ```
 
-##### Moving a renderable across the map
+### Repeat-modes
 
-MapStateModifier relates to MapModifier in the same way StateModifier relates to Modifier.
-MapStateModifier makes it possible to change the position from one place to another, using
-a transitionable. Transitions are chained, so you can create paths that the renderable will follow:
+|Value|Description|
+|---|---|
+|RepeatMode.NONE|No image-repeat **(default)**.|
+|RepeatMode.HORIZONTAL|Image is repeated horizontally.|
+|RepeatMode.VERTICAL|Image is repeat vertically.|
+|RepeatMode.BOTH|Image is repeated both horizontally and vertically.|
+|RepeatMode.UNSET|Unsets the repeat-mode. Use this option is you want to set the repeat-mode using CSS or using `options.properties.backgroundRepeat`.|
 
-```javascript
-MapStateModifier = require('famous-map/MapStateModifier');
-
-var surface = new Surface({
-    size: [50, 50],
-    properties: {
-        backgroundColor: 'white'
-    }
-});
-var modifier = new Modifier({
-    align: [0, 0],
-    origin: [0.5, 0.5]
-});
-var mapStateModifier = new MapStateModifier({
-    mapView: mapView,
-    position: new google.maps.LatLng(51.4484855, 5.451478)
-});
-this.add(mapStateModifier).add(modifier).add(surface);
-
-// Animate the renderable across the map
-mapStateModifier.setPosition(
-    new google.maps.LatLng(52.4484855, 6.451478),
-    { method: 'map-speed', speed: 200 } // 200 km/h
-);
-mapStateModifier.setPosition(
-    new google.maps.LatLng(50.4484855, 3.451478),
-    { duration: 4000 }
-);
-```
-
-##### Enable auto-scaling when the map is zoomed in or out
-
-To enable auto-scaling set zoomBase to the zoom-level you wish the renderables to be displayed in its true size. In this example where zoomBase is set to 5, this would mean that at zoom-level 4 its size will 1/4 of its original size:
-
-```javascript
-var mapModifier = new MapModifier({
-    mapView: mapView,
-    position: new google.maps.LatLng(51.4484855, 5.451478),
-    zoomBase: 5
-});
-```
-
-To use a different zooming strategy, use zoomScale. ZoomScale can be set to either a number or a getter function:
-
-```javascript
-var mapModifier = new MapModifier({
-    mapView: mapView,
-    position: new google.maps.LatLng(51.4484855, 5.451478),
-    zoomBase: 5,
-    zoomScale: 0.5
-});
-
-var mapModifier = new MapModifier({
-    mapView: mapView,
-    position: new google.maps.LatLng(51.4484855, 5.451478),
-    zoomBase: 5,
-    zoomScale: function (baseZoom, currentZoom) {
-        var zoom = currentZoom - baseZoom;
-        if (zoom < 0) {
-            return 1 / (2 * (Math.abs(zoom) + 1));
-        } else {
-            return 1 + (2 * zoom);
-        }
-    }
-});
-```
-
-##### API reference
+## API reference
 
 |Class|Description|
 |---|---|
-|[MapView](docs/MapView.md)|View class which encapsulates a google-maps V3 map.|
-|[MapModifier](docs/MapModifier.md)|Stateless modifier which positions a renderable based on a geographical position {LatLng}.|
-|[MapStateModifier](docs/MapStateModifier.md)|Modifier which positions a renderable based on a geographical position {LatLng}, using transitions.|
-|[MapUtility](docs/MapUtility.md)|General purpose utility functions.
-|[MapTransition](docs/MapTransition.md)|Transition for moving at a certain speed over the map (km/h).
-|[MapPositionTransitionable](docs/MapPositionTransitionable.md)|Transitionable for geographical coordinates {LatLng}.
+|[BkImageSurface](docs/BkImageSurface.md)|Background image surface class.|
 
 
 ## Contact
