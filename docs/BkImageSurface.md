@@ -8,7 +8,7 @@ from the image.
 
 ### Options
 
-**[imageUrl]**: {String} Image-url
+**[content]**: {String} Image-url
 
 **[sizeMode]**: {Number} Sizing-mode to use.
 
