@@ -1,24 +1,25 @@
 {
-  "name": "famous-imageview",
+  "name": "famous-bkimagesurface",
   "version": "0.0.1",
-  "homepage": "https://github.com/IjzerenHein/famous-imageview",
+  "homepage": "https://github.com/IjzerenHein/famous-bkimagesurface",
   "author": {
     "name": "Hein Rutjes <hrutjes@gmail.com>"
   },
   "description": "Displays an image using a div and background-image rather than a img-tag",
   "keywords": [
     "famo.us",
-    "famous"
+    "famous",
+    "image"
   ],
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/IjzerenHein/famous-imageview/blob/master/LICENSE"
+      "url": "https://github.com/IjzerenHein/famous-bkimagesurface/blob/master/LICENSE"
     }
   ],
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/IjzerenHein/famous-imageview/issues"
+    "url": "https://github.com/IjzerenHein/famous-bkimagesurface/issues"
   },
   "engines": {
     "node": ">= 0.10.0"

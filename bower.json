@@ -1,14 +1,15 @@
 {
-  "name": "famous-imageview",
+  "name": "famous-bkimagesurface",
   "version": "0.0.1",
-  "homepage": "https://github.com/IjzerenHein/famous-imageview",
+  "homepage": "https://github.com/IjzerenHein/famous-bkimagesurface",
   "authors": [
     "Hein Rutjes <hrutjes@gmail.com>"
   ],
   "description": "Displays an image using a div and background-image rather than a img-tag",
   "keywords": [
     "famo.us",
-    "famous"
+    "famous",
+    "image"
   ],
   "license": "MIT",
   "ignore": [
