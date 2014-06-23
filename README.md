@@ -98,6 +98,9 @@ imageSurface.setRepeatMode(BkImageSurface.RepeatMode.BOTH);
 |---|---|
 |[BkImageSurface](docs/BkImageSurface.md)|Background image surface class.|
 
+## Contribute
+
+Feel free to contribute to this project in any way. The easiest way to support this project is by giving it a star.
 
 ## Contact
 - 	@IjzerenHein
