@@ -1,16 +1,16 @@
-/* 
+/*
  * Copyright (c) 2014 Gloey Apps
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -18,22 +18,21 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  * @author: Hein Rutjes (IjzerenHein)
  * @license MIT
  * @copyright Gloey Apps, 2014
  */
 
-/*jslint browser:true, nomen:true, vars:true, plusplus:true*/
 /*global define*/
 
 /**
  * @title BkImageSurface
- * 
+ *
  * BkImageSurface adds support for sizing-strategies such as AspectFit and AspectFill for displaying images with famo.us.
  * It uses a 'div' with a background-image rather than a 'img' tag.
  *
- * Can be used as a drop-in replacement for ImageSurface, in case the the size of the div is not derived 
+ * Can be used as a drop-in replacement for ImageSurface, in case the the size of the div is not derived
  * from the image.
  *
  * ### Options
@@ -69,12 +68,12 @@
  * |RepeatMode.BOTH|Image is repeated both horizontally and vertically.|
  * |RepeatMode.UNSET|Unsets the repeat-mode. Use this option is you want to set the repeat-mode using CSS or the .properties.|
 */
-define(function (require, exports, module) {
+define(function(require, exports, module) {
     'use strict';
-    
+
     // import dependencies
     var Surface = require('famous/core/Surface');
-    
+
     /**
      * Sizing-modes
      */
@@ -92,7 +91,7 @@ define(function (require, exports, module) {
         BOTTOMLEFT: 10,
         BOTTOMRIGHT: 11
     };
-    
+
     /**
      * Repeat-modes
      */
@@ -103,7 +102,7 @@ define(function (require, exports, module) {
         BOTH: 3,
         UNSET: 4
     };
-    
+
     /**
      * @class BkImageSurface
      * @method constructor
@@ -116,7 +115,7 @@ define(function (require, exports, module) {
         this._sizeMode = options ? options.sizeMode : undefined;
         this._imageUrl = options ? options.content : undefined;
         this._repeatMode = (options && (options.repeatMode !== undefined)) ? options.repeatMode : RepeatMode.NONE;
-        
+
         this._updateProperties();
     }
     BkImageSurface.prototype = Object.create(Surface.prototype);
@@ -125,15 +124,15 @@ define(function (require, exports, module) {
     BkImageSurface.prototype.elementClass = 'famous-surface';
     BkImageSurface.SizeMode = SizeMode;
     BkImageSurface.RepeatMode = RepeatMode;
-    
+
     /**
      * @method _updateProperties
      * @private
      */
-    BkImageSurface.prototype._updateProperties = function () {
+    BkImageSurface.prototype._updateProperties = function() {
         var props = this.getProperties();
         props.backgroundImage = 'url(' + this._imageUrl + ')';
-        
+
         props.backgroundSize = 'auto';
         props.backgroundPosition = 'center';
         switch (this._sizeMode) {
@@ -174,7 +173,7 @@ define(function (require, exports, module) {
             props.backgroundPosition = 'right bottom';
             break;
         }
-        
+
         switch (this._repeatMode) {
         case RepeatMode.NONE:
             props.backgroundRepeat = 'no-repeat';
@@ -192,37 +191,37 @@ define(function (require, exports, module) {
             delete props.backgroundRepeat;
             break;
         }
-        
+
         this.setProperties(props);
     };
-    
+
     /**
      * @method setContent
      * @param {String} imageUrl Image-url, when set will cause re-rendering
      */
-    BkImageSurface.prototype.setContent = function (imageUrl) {
+    BkImageSurface.prototype.setContent = function(imageUrl) {
         this._imageUrl = imageUrl;
         this._updateProperties();
     };
-    
+
     /**
      * @method setSizeMode
      * @param {Number} sizeMode Sizing-mode, when set will cause re-rendering
      */
-    BkImageSurface.prototype.setSizeMode = function (sizeMode) {
+    BkImageSurface.prototype.setSizeMode = function(sizeMode) {
         this._sizeMode = sizeMode;
         this._updateProperties();
     };
-    
+
     /**
      * @method setRepeatMode
      * @param {Number} repeatMode Repeat-mode, when set will cause re-rendering
      */
-    BkImageSurface.prototype.setRepeatMode = function (repeatMode) {
+    BkImageSurface.prototype.setRepeatMode = function(repeatMode) {
         this._repeatMode = repeatMode;
         this._updateProperties();
     };
-    
+
     /**
      * Place the document element that this component manages into the document.
      *
@@ -250,6 +249,6 @@ define(function (require, exports, module) {
     BkImageSurface.prototype.recall = function recall(target) {
         target.style.backgroundImage = '';
     };
-    
+
     module.exports = BkImageSurface;
 });
