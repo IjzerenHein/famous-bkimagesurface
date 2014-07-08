@@ -131,7 +131,11 @@ define(function(require, exports, module) {
      */
     BkImageSurface.prototype._updateProperties = function() {
         var props = this.getProperties();
-        props.backgroundImage = 'url(' + this._imageUrl + ')';
+        if (this._imageUrl) {
+            props.backgroundImage = 'url(' + this._imageUrl + ')';
+        } else {
+            props.backgroundImage = '';
+        }
 
         props.backgroundSize = 'auto';
         props.backgroundPosition = 'center';
@@ -233,7 +237,9 @@ define(function(require, exports, module) {
      * @param {Node} target document parent of this container
      */
     BkImageSurface.prototype.deploy = function deploy(target) {
-        target.style.backgroundImage = 'url(' + this._imageUrl + ')';
+        if (this._imageUrl) {
+            target.style.backgroundImage = 'url(' + this._imageUrl + ')';
+        }
     };
 
     /**
