@@ -1,6 +1,6 @@
 {
   "name": "famous-bkimagesurface",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/IjzerenHein/famous-bkimagesurface",
   "authors": [
     "Hein Rutjes <hrutjes@gmail.com>"
@@ -9,7 +9,9 @@
   "keywords": [
     "famo.us",
     "famous",
-    "image"
+    "image",
+    "imagesurface",
+    "bkimagesurface"
   ],
   "license": "MIT",
   "ignore": [
