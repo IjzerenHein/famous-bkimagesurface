@@ -15,17 +15,17 @@ Can be used as a drop-in replacement for ImageSurface, *in case the the size of 
 
 Install using bower:
 	
-	bower install IjzerenHein/famous-bkimagesurface
+	bower install famous-bkimagesurface
 	
 ## Getting started
 
-Add bkimagesurface to the requirejs paths config:
+If necessary, add to the requirejs paths config:
 
 ```javascript
 require.config({
     paths: {
         ...
-        'famous-bkimagesurface': 'bower_components/famous-bkimagesurface',
+        'famous-bkimagesurface': 'bower_components/famous-bkimagesurface/BkImageSurface',
         ...
     }
 });
@@ -34,7 +34,7 @@ require.config({
 Example of how to create a BkImageSurface:
 
 ```javascript
-var BkImageSurface = require('famous-bkimagesurface/BkImageSurface');
+var BkImageSurface = require('famous-bkimagesurface');
 
 var imageSurface = new BkImageSurface({
     content: 'myimage.png',
