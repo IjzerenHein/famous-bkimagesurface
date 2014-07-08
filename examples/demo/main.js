@@ -35,7 +35,7 @@ define(function(require) {
     var Modifier = require('famous/core/Modifier');
     var RenderNode = require('famous/core/RenderNode');
     var GridLayout = require('famous/views/GridLayout');
-    var BkImageSurface = require('famous-bkimagesurface/BkImageSurface');
+    var BkImageSurface = require('famous-bkimagesurface');
 
     // create the main context
     var mainContext = Engine.createContext();
