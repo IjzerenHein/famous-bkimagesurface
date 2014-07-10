@@ -78,29 +78,29 @@ define(function(require, exports, module) {
      * Sizing-modes
      */
     var SizeMode = {
-        FILL: 0,
-        ASPECTFILL: 1,
-        ASPECTFIT: 2,
-        CENTER: 3,
-        LEFT: 4,
-        RIGHT: 5,
-        TOP: 6,
-        BOTTOM: 7,
-        TOPLEFT: 8,
-        TOPRIGHT: 9,
-        BOTTOMLEFT: 10,
-        BOTTOMRIGHT: 11
+        FILL: '100% 100%',
+        ASPECTFILL: 'cover',
+        ASPECTFIT: 'contain',
+        CENTER: 'auto',
+        LEFT: 'left center',
+        RIGHT: 'right center',
+        TOP: 'center top',
+        BOTTOM: 'center bottom',
+        TOPLEFT: 'left top',
+        TOPRIGHT: 'top right',
+        BOTTOMLEFT: 'left bottom',
+        BOTTOMRIGHT: 'right bottom'
     };
 
     /**
      * Repeat-modes
      */
     var RepeatMode = {
-        NONE: 0,
-        VERTICAL: 1,
-        HORIZONTAL: 2,
-        BOTH: 3,
-        UNSET: 4
+        NONE: 'no-repeat',
+        VERTICAL: 'repeat-x',
+        HORIZONTAL: 'repeat-y',
+        BOTH: 'repeat',
+        UNSET: 'inherit'
     };
 
     /**
@@ -136,66 +136,10 @@ define(function(require, exports, module) {
         } else {
             props.backgroundImage = '';
         }
-
         props.backgroundSize = 'auto';
         props.backgroundPosition = 'center';
-        switch (this._sizeMode) {
-        case SizeMode.FILL:
-            props.backgroundSize = '100% 100%';
-            break;
-        case SizeMode.ASPECTFILL:
-            props.backgroundSize = 'cover';
-            break;
-        case SizeMode.ASPECTFIT:
-            props.backgroundSize = 'contain';
-            break;
-        case SizeMode.CENTER:
-            props.backgroundSize = 'auto';
-            break;
-        case SizeMode.LEFT:
-            props.backgroundPosition = 'left center';
-            break;
-        case SizeMode.RIGHT:
-            props.backgroundPosition = 'right center';
-            break;
-        case SizeMode.TOP:
-            props.backgroundPosition = 'center top';
-            break;
-        case SizeMode.BOTTOM:
-            props.backgroundPosition = 'center bottom';
-            break;
-        case SizeMode.TOPLEFT:
-            props.backgroundPosition = 'left top';
-            break;
-        case SizeMode.TOPRIGHT:
-            props.backgroundPosition = 'right top';
-            break;
-        case SizeMode.BOTTOMLEFT:
-            props.backgroundPosition = 'left bottom';
-            break;
-        case SizeMode.BOTTOMRIGHT:
-            props.backgroundPosition = 'right bottom';
-            break;
-        }
-
-        switch (this._repeatMode) {
-        case RepeatMode.NONE:
-            props.backgroundRepeat = 'no-repeat';
-            break;
-        case RepeatMode.HORIZONTAL:
-            props.backgroundRepeat = 'repeat-x';
-            break;
-        case RepeatMode.VERTICAL:
-            props.backgroundRepeat = 'repeat-y';
-            break;
-        case RepeatMode.BOTH:
-            props.backgroundRepeat = 'repeat';
-            break;
-        case RepeatMode.UNSET:
-            delete props.backgroundRepeat;
-            break;
-        }
-
+        props.backgroundSize = this._sizeMode;
+        props.backgroundRepeat = this._repeatMode;
         this.setProperties(props);
     };
 
