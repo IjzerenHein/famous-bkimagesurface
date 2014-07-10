@@ -43,56 +43,85 @@ var imageSurface = new BkImageSurface({
 this.add(imageSurface);
 ```
 
-or use the setter-functions:
+all possible modes:
+
+```javascript
+var imageSurface = new BkImageSurface({
+    content: 'myimage.png',
+    sizeMode: BkImageSurface.SizeMode.ASPECTFILL,
+    positionMode: BkImageSurface.PositionMode.TOP,
+    repeatMode: BkImageSurface.RepeatMode.NONE
+});
+this.add(imageSurface);
+```
+
+using css-style values directly:
+
+```javascript
+var imageSurface = new BkImageSurface({
+    content: 'myimage.png',
+    sizeMode: '100px 50%',
+    positionMode: 'center center',
+    repeatMode: 'repeat-x'
+});
+this.add(imageSurface);
+```
+
+using the setter-functions:
 
 ```javascript
 var imageSurface = new BkImageSurface();
 imageSurface.setContent('http://www.myimage.png');
 imageSurface.setSizeMode(BkImageSurface.SizeMode.ASPECTFIT);
+imageSurface.setPositionMode(BkImageSurface.PositionMode.RIGHT);
+imageSurface.setRepeatMode(BkImageSurface.RepeatMode.VERTICAL);
 ```
 
-## Sizing-modes
+## Documentation
 
-|Value|Description|
-|---|---|
-|SizeMode.FILL|Fills the image to the size of the div.|
-|SizeMode.ASPECTFILL|Fills the div with the image while keeping correct image aspect ratio (crops if neccesary).|
-|SizeMode.ASPECTFIT|Fits the whole image in the div while keeping correct image aspect ratio.|
-|SizeMode.CENTER|Centers the image in the div and keeps original image dimensions  **(default)**.|
-|SizeMode.LEFT|Left aligns the image in the div.|
-|SizeMode.RIGHT|Right aligns the image in the div.|
-|SizeMode.TOP|Top aligns the image in the div.|
-|SizeMode.BOTTOM|Bottom aligns the image in the div.|
-|SizeMode.TOPLEFT|Aligns the image in the top-left corner of the div.|
-|SizeMode.TOPRIGHT|Aligns the image in the top-right corner of the div.|
-|SizeMode.BOTTOMLEFT|Aligns the image in the bottom-left corner of the div.|
-|SizeMode.BOTTOMRIGHT|Aligns the image in the bottom-right corner of the div.|
+The size-, position- and repeat- modes correspond directly to the following css-styles:
 
-## Image repeat
+|Mode|CSS-style|
+|----|---------|
+|SizeMode|`background-size`|
+|PositionMode|`background-position`|
+|RepeatMode|`background-repeat`|
 
-BkImageSurface attempts to be a drop-in-replacement for ImageSurface and therefore disables image-repeating by default.
+According to your liking you can choose to use either the Mode-definitions or CSS-styles directly.
 
-To enable image-repeating on the div, use RepeatMode:
+### Size-modes
 
-```javascript
-var imageSurface = new BkImageSurface({
-    repeatMode: BkImageSurface.RepeatMode.HORIZONTAL
-});
+|Mode|Value|Description|
+|-----|---------|-----------|
+|SizeMode.AUTO|auto|Keeps the original image dimensions.|
+|SizeMode.FILL **(default)**|100% 100%|Fills the image to the size of the div.|
+|SizeMode.ASPECTFILL|cover|Fills the div with the image while keeping correct image aspect ratio (crops if neccesary).|
+|SizeMode.ASPECTFIT|contain|Fits the whole image in the div while keeping correct image aspect ratio.|
 
-imageSurface.setRepeatMode(BkImageSurface.RepeatMode.BOTH);
-```
+### Position-modes
+
+|Mode|Value|Description|
+|----|-----|-----------|
+|PositionMode.CENTER **(default)**|center center|Centers the image in the div.|
+|PositionMode.LEFT|left center|Left aligns the image in the div.|
+|PositionMode.RIGHT|right center|Right aligns the image in the div.|
+|PositionMode.TOP|center top|Top aligns the image in the div.|
+|PositionMode.BOTTOM|center bottom|Bottom aligns the image in the div.|
+|PositionMode.TOPLEFT|left top|Aligns the image in the top-left corner of the div.|
+|PositionMode.TOPRIGHT|right top|Aligns the image in the top-right corner of the div.|
+|PositionMode.BOTTOMLEFT|left bottom|Aligns the image in the bottom-left corner of the div.|
+|PositionMode.BOTTOMRIGHT|right bottom|Aligns the image in the bottom-right corner of the div.|
 
 ### Repeat-modes
 
-|Value|Description|
-|---|---|
-|RepeatMode.NONE|No image-repeat **(default)**.|
-|RepeatMode.HORIZONTAL|Image is repeated horizontally.|
-|RepeatMode.VERTICAL|Image is repeat vertically.|
-|RepeatMode.BOTH|Image is repeated both horizontally and vertically.|
-|RepeatMode.UNSET|Unsets the repeat-mode. Use this option is you want to set the repeat-mode using CSS or using `options.properties.backgroundRepeat`.|
+|Mode|Value|Description|
+|-----|---------|-----------|
+|RepeatMode.NONE **(default)**|no-repeat|No image-repeat.|
+|RepeatMode.HORIZONTAL|repeat-y|Image is repeated horizontally.|
+|RepeatMode.VERTICAL|repeat-x|Image is repeated vertically.|
+|RepeatMode.BOTH|repeat|Image is repeated both horizontally and vertically.|
 
-## API reference
+### API reference
 
 |Class|Description|
 |---|---|
