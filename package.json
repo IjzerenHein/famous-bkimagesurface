@@ -31,6 +31,6 @@
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-watch": "latest",
     "grunt-contrib-qunit": "latest",
-    "grunt-jsdox": "latest"
+    "grunt-jsdoc-to-markdown": "latest"
   }
 }

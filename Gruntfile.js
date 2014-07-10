@@ -42,23 +42,15 @@ module.exports = function(grunt) {
         tasks: ['jshint:lib_test', 'qunit']
       }
     },
-    jsdox: {
-      generate: {
+    jsdoc2md: {
+      separateOutputFilePerInput: {
         options: {
-          contentsEnabled: false,
-          contentsTitle: 'Example Documentation',
-          contentsFile: 'readme.md',
+          index: true
         },
-        src: ['./BkImageSurface.js'],
-        dest: 'docs'
-      },
-      /*publish: {
-        enabled: true,
-        path: '<%= jsdox.generate.dest %>',
-        message: 'Markdown Auto-Generated for version <%= pkg.version %>',
-        remoteName: 'upstream',
-        remoteBranch: 'master'
-      }*/
+        files: [
+            { src: 'BkImageSurface.js', dest: 'docs/BkImageSurface.md' }
+        ]
+      }
     }
   });
 
@@ -66,9 +58,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-jsdox');
+  grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'jsdox', 'qunit']);
+  grunt.registerTask('default', ['jshint', 'jsdoc2md', 'qunit']);
 
 };
