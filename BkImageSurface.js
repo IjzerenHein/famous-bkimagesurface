@@ -27,47 +27,14 @@
 /*global define*/
 
 /**
- * @title BkImageSurface
- *
  * BkImageSurface adds support for sizing-strategies such as AspectFit and AspectFill for displaying images with famo.us.
  * It uses a 'div' with a background-image rather than a 'img' tag.
  *
  * Can be used as a drop-in replacement for ImageSurface, in case the the size of the div is not derived
  * from the image.
  *
- * ### Options
- *
- * **[content]**: {String} Image-url
- *
- * **[sizeMode]**: {Number} Sizing-mode to use.
- *
- * ### Sizing-modes
- *
- * |Value|Description|
- * |---|---|
- * |SizeMode.FILL|Fills the image to the size of the div.|
- * |SizeMode.ASPECTFILL|Fills the div with the image while keeping correct image aspect ratio (crops if neccesary).|
- * |SizeMode.ASPECTFIT|Fits the whole image in the div while keeping correct image aspect ratio.|
- * |SizeMode.CENTER (default)|Centers the image in the div and keeps original image dimensions.|
- * |SizeMode.LEFT|Left aligns the image in the div.|
- * |SizeMode.RIGHT|Right aligns the image in the div.|
- * |SizeMode.TOP|Top aligns the image in the div.|
- * |SizeMode.BOTTOM|Bottom aligns the image in the div.|
- * |SizeMode.TOPLEFT|Aligns the image in the top-left corner of the div.|
- * |SizeMode.TOPRIGHT|Aligns the image in the top-right corner of the div.|
- * |SizeMode.BOTTOMLEFT|Aligns the image in the bottom-left corner of the div.|
- * |SizeMode.BOTTOMRIGHT|Aligns the image in the bottom-right corner of the div.|
- *
- * ### Repeat-modes
- *
- * |Value|Description|
- * |---|---|
- * |RepeatMode.NONE (default)|No image-repeat.|
- * |RepeatMode.HORIZONTAL|Image is repeated horizontally.|
- * |RepeatMode.VERTICAL|Image is repeat vertically.|
- * |RepeatMode.BOTH|Image is repeated both horizontally and vertically.|
- * |RepeatMode.UNSET|Unsets the repeat-mode. Use this option is you want to set the repeat-mode using CSS or the .properties.|
-*/
+ * @module
+ */
 define(function(require, exports, module) {
     'use strict';
 
@@ -75,58 +42,73 @@ define(function(require, exports, module) {
     var Surface = require('famous/core/Surface');
 
     /**
-     * Sizing-modes
+     * @enum
+     * @alias module:BkImageSurface.SizeMode
      */
     var SizeMode = {
+        AUTO: 'auto',
         FILL: '100% 100%',
         ASPECTFILL: 'cover',
-        ASPECTFIT: 'contain',
-        CENTER: 'auto',
+        ASPECTFIT: 'contain'
+    };
+
+    /**
+     * @enum
+     * @alias module:BkImageSurface.PositionMode
+     */
+    var PositionMode = {
+        CENTER: 'center center',
         LEFT: 'left center',
         RIGHT: 'right center',
         TOP: 'center top',
         BOTTOM: 'center bottom',
         TOPLEFT: 'left top',
-        TOPRIGHT: 'top right',
+        TOPRIGHT: 'right top',
         BOTTOMLEFT: 'left bottom',
         BOTTOMRIGHT: 'right bottom'
     };
 
     /**
-     * Repeat-modes
+     * @enum
+     * @alias module:BkImageSurface.RepeatMode
      */
     var RepeatMode = {
         NONE: 'no-repeat',
         VERTICAL: 'repeat-x',
         HORIZONTAL: 'repeat-y',
-        BOTH: 'repeat',
-        UNSET: 'inherit'
+        BOTH: 'repeat'
     };
 
     /**
-     * @class BkImageSurface
-     * @method constructor
-     * @constructor
+     * @class
      * @param {Object} options Options.
+     * @param {String} [options.content] Image-url.
+     * @param {SizeMode|String} [options.sizeMode] Size-mode to use.
+     * @param {PositionMode|String} [options.positionMode] Position-mode to use.
+     * @param {RepeatMode|String} [options.repeatMode] Repeat-mode to use.
+     * @alias module:BkImageSurface
      */
-    function BkImageSurface(options) {
+    var BkImageSurface = function(options) {
         Surface.apply(this, arguments);
         this.content = undefined;
-        this._sizeMode = options ? options.sizeMode : undefined;
         this._imageUrl = options ? options.content : undefined;
-        this._repeatMode = (options && (options.repeatMode !== undefined)) ? options.repeatMode : RepeatMode.NONE;
+        this._sizeMode = (options && options.sizeMode) ? options.sizeMode : SizeMode.FILL;
+        this._positionMode = (options && options.positionMode) ? options.positionMode : PositionMode.CENTER;
+        this._repeatMode = (options && options.repeatMode) ? options.repeatMode : RepeatMode.NONE;
 
         this._updateProperties();
-    }
+    };
     BkImageSurface.prototype = Object.create(Surface.prototype);
     BkImageSurface.prototype.constructor = BkImageSurface;
     BkImageSurface.prototype.elementType = 'div';
     BkImageSurface.prototype.elementClass = 'famous-surface';
     BkImageSurface.SizeMode = SizeMode;
+    BkImageSurface.PositionMode = PositionMode;
     BkImageSurface.RepeatMode = RepeatMode;
 
     /**
-     * @method _updateProperties
+     * Update the css-styles on the div.
+     *
      * @private
      */
     BkImageSurface.prototype._updateProperties = function() {
@@ -136,15 +118,13 @@ define(function(require, exports, module) {
         } else {
             props.backgroundImage = '';
         }
-        props.backgroundSize = 'auto';
-        props.backgroundPosition = 'center';
         props.backgroundSize = this._sizeMode;
+        props.backgroundPosition = this._positionMode;
         props.backgroundRepeat = this._repeatMode;
         this.setProperties(props);
     };
 
     /**
-     * @method setContent
      * @param {String} imageUrl Image-url, when set will cause re-rendering
      */
     BkImageSurface.prototype.setContent = function(imageUrl) {
@@ -153,8 +133,14 @@ define(function(require, exports, module) {
     };
 
     /**
-     * @method setSizeMode
-     * @param {Number} sizeMode Sizing-mode, when set will cause re-rendering
+     * @return {String} Image-url
+     */
+    BkImageSurface.prototype.getContent = function() {
+        return this._imageUrl;
+    };
+
+    /**
+     * @param {SizeMode|String} sizeMode Sizing-mode, when set will cause re-rendering
      */
     BkImageSurface.prototype.setSizeMode = function(sizeMode) {
         this._sizeMode = sizeMode;
@@ -162,12 +148,40 @@ define(function(require, exports, module) {
     };
 
     /**
-     * @method setRepeatMode
-     * @param {Number} repeatMode Repeat-mode, when set will cause re-rendering
+     * @return {SizeMode|String} Size-mode
+     */
+    BkImageSurface.prototype.getSizeMode = function() {
+        return this._sizeMode;
+    };
+
+    /**
+     * @param {PositionMode|String} positionMode Position-mode, when set will cause re-rendering
+     */
+    BkImageSurface.prototype.setPositionMode = function(positionMode) {
+        this._positionMode = positionMode;
+        this._updateProperties();
+    };
+
+    /**
+     * @return {RepeatMode|String} Position-mode
+     */
+    BkImageSurface.prototype.getPositionMode = function() {
+        return this._positionMode;
+    };
+
+    /**
+     * @param {RepeatMode|String} repeatMode Repeat-mode, when set will cause re-rendering
      */
     BkImageSurface.prototype.setRepeatMode = function(repeatMode) {
         this._repeatMode = repeatMode;
         this._updateProperties();
+    };
+
+    /**
+     * @return {RepeatMode|String} Repeat-mode
+     */
+    BkImageSurface.prototype.getRepeatMode = function() {
+        return this._repeatMode;
     };
 
     /**
@@ -177,7 +191,6 @@ define(function(require, exports, module) {
      * after the surface was removed/re-added from the DOM.
      *
      * @private
-     * @method deploy
      * @param {Node} target document parent of this container
      */
     BkImageSurface.prototype.deploy = function deploy(target) {
@@ -193,7 +206,6 @@ define(function(require, exports, module) {
      * after the surface was removed/re-added from the DOM.
      *
      * @private
-     * @method recall
      * @param {Node} target node to which the component was deployed
      */
     BkImageSurface.prototype.recall = function recall(target) {
