@@ -32,5 +32,9 @@
     "grunt-contrib-watch": "latest",
     "grunt-contrib-qunit": "latest",
     "grunt-jsdoc-to-markdown": "latest"
-  }
+  },
+  "files": [
+    "BkImageSurface.js",
+    "LICENSE"
+  ]
 }
