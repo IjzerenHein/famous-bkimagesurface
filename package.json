@@ -1,7 +1,11 @@
 {
   "name": "famous-bkimagesurface",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/IjzerenHein/famous-bkimagesurface",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/IjzerenHein/famous-bkimagesurface.git"
+  },
   "author": {
     "name": "Hein Rutjes <hrutjes@gmail.com>"
   },
