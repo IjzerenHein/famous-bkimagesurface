@@ -10,14 +10,14 @@ Can be used as a drop-in replacement for ImageSurface, *in case the the size of 
 
 [View the demo here](https://rawgit.com/IjzerenHein/famous-imageview/master/examples/demo/index.html)
 
-
-## Installation
-
-Install using bower:
-	
-	bower install famous-bkimagesurface
 	
 ## Getting started
+
+Install using bower or npm:
+
+    bower install famous-bkimagesurface
+
+    npm install famous-bkimagesurface
 
 If necessary, add to the requirejs paths config:
 

@@ -5,7 +5,7 @@
   "authors": [
     "Hein Rutjes <hrutjes@gmail.com>"
   ],
-  "description": "Displays an image using a div and background-image rather than a img-tag",
+  "description": "Displays an image in famo.us using a div and background-image rather than a img-tag",
   "keywords": [
     "famo.us",
     "famous",
