@@ -98,7 +98,13 @@ define(function(require, exports, module) {
     BkImageSurface.prototype._updateProperties = function() {
         var props = this.getProperties();
         if (this._imageUrl) {
-            props.backgroundImage = 'url(' + this._imageUrl + ')';
+            var imageUrl = this._imageUrl;
+            // url encode '(' and ')'
+            if ((imageUrl.indexOf('(') >= 0) || (imageUrl.indexOf(')') >= 0)) {
+                imageUrl = imageUrl.split('(').join('%28');
+                imageUrl = imageUrl.split(')').join('%29');
+            }
+            props.backgroundImage = 'url(' + imageUrl + ')';
         } else {
             props.backgroundImage = '';
         }

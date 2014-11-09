@@ -19,18 +19,6 @@ Install using bower or npm:
 
     npm install famous-bkimagesurface
 
-If necessary, add to the requirejs paths config:
-
-```javascript
-require.config({
-    paths: {
-        ...
-        'famous-bkimagesurface': 'bower_components/famous-bkimagesurface/BkImageSurface',
-        ...
-    }
-});
-```
-
 Example of how to create a BkImageSurface:
 
 ```javascript
