@@ -1,10 +1,17 @@
 {
   "name": "famous-bkimagesurface",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/IjzerenHein/famous-bkimagesurface",
   "repository": {
     "type": "git",
     "url": "git://github.com/IjzerenHein/famous-bkimagesurface.git"
+  },
+  "browserify": {
+    "transform": [
+      "deamdify",
+      "famousify",
+      "brfs"
+    ]
   },
   "author": {
     "name": "Hein Rutjes <hrutjes@gmail.com>"
@@ -31,6 +38,10 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
+    "brfs": "latest",
+    "browserify": "latest",
+    "deamdify": "latest",
+    "famousify": "latest",
     "grunt": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-watch": "latest",
