@@ -5,10 +5,8 @@
  *
  * @author: Hein Rutjes (IjzerenHein)
  * @license MIT
- * @copyright Gloey Apps, 2014
+ * @copyright Gloey Apps, 2014 - 2015
  */
-
-/*global define*/
 
 /**
  * BkImageSurface adds support for sizing-strategies such as AspectFit and AspectFill for displaying images with famo.us.
@@ -72,7 +70,7 @@ define(function(require, exports, module) {
      * @param {RepeatMode|String} [options.repeatMode] Repeat-mode to use.
      * @alias module:BkImageSurface
      */
-    var BkImageSurface = function(options) {
+    function BkImageSurface(options) {
         Surface.apply(this, arguments);
         this.content = undefined;
         this._imageUrl = options ? options.content : undefined;
@@ -81,7 +79,7 @@ define(function(require, exports, module) {
         this._repeatMode = (options && options.repeatMode) ? options.repeatMode : RepeatMode.NONE;
 
         this._updateProperties();
-    };
+    }
     BkImageSurface.prototype = Object.create(Surface.prototype);
     BkImageSurface.prototype.constructor = BkImageSurface;
     BkImageSurface.prototype.elementType = 'div';
@@ -105,7 +103,8 @@ define(function(require, exports, module) {
                 imageUrl = imageUrl.split(')').join('%29');
             }
             props.backgroundImage = 'url(' + imageUrl + ')';
-        } else {
+        }
+        else {
             props.backgroundImage = '';
         }
         props.backgroundSize = this._sizeMode;
@@ -184,6 +183,7 @@ define(function(require, exports, module) {
      * @param {Node} target document parent of this container
      */
     BkImageSurface.prototype.deploy = function deploy(target) {
+        target.innerHTML = '';
         if (this._imageUrl) {
             target.style.backgroundImage = 'url(' + this._imageUrl + ')';
         }
