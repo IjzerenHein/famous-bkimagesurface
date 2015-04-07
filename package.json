@@ -1,6 +1,6 @@
 {
   "name": "famous-bkimagesurface",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/IjzerenHein/famous-bkimagesurface",
   "repository": {
     "type": "git",
@@ -8,9 +8,7 @@
   },
   "browserify": {
     "transform": [
-      "deamdify",
-      "famousify",
-      "brfs"
+      "deamdify"
     ]
   },
   "author": {
@@ -38,14 +36,11 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
-    "brfs": "latest",
     "browserify": "latest",
     "deamdify": "latest",
-    "famousify": "latest",
     "grunt": "latest",
-    "grunt-contrib-jshint": "latest",
-    "grunt-contrib-watch": "latest",
-    "grunt-contrib-qunit": "latest",
+    "grunt-eslint": "latest",
+    "grunt-jscs": "latest",
     "grunt-jsdoc-to-markdown": "latest"
   },
   "files": [

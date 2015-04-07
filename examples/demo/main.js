@@ -8,8 +8,6 @@
  * @copyright Gloey Apps, 2014
  */
 
-/*global define*/
-
 define(function(require) {
     'use strict';
 

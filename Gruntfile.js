@@ -3,44 +3,17 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    // Task configuration.
-    jshint: {
+    eslint: {
+      target: ['BkImageSurface.js'],
       options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        unused: true,
-        boss: true,
-        eqnull: true,
-        browser: true,
-        globals: {
-          jQuery: true
+        config: '.eslintrc'
+      }
+    },
+    jscs: {
+        src: ['BkImageSurface.js'],
+        options: {
+            config: '.jscsrc'
         }
-      },
-      gruntfile: {
-        src: 'Gruntfile.js'
-      },
-      lib_test: {
-        src: ['*.js', 'examples/panToPosition/*.js', 'test/**/*.js']
-      }
-    },
-    qunit: {
-      files: ['test/**/*.html']
-    },
-    watch: {
-      gruntfile: {
-        files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile']
-      },
-      lib_test: {
-        files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'qunit']
-      }
     },
     jsdoc2md: {
       separateOutputFilePerInput: {
@@ -55,12 +28,10 @@ module.exports = function(grunt) {
   });
 
   // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-qunit');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-eslint');
+  grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-jsdoc-to-markdown');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'jsdoc2md', 'qunit']);
-
+  grunt.registerTask('default', ['eslint', 'jscs', 'jsdoc2md']);
 };

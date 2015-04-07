@@ -8,8 +8,6 @@
  * @copyright Gloey Apps, 2014
  */
 
-/*global define*/
-
 define(function(require) {
     'use strict';
 
@@ -47,7 +45,7 @@ define(function(require) {
             }
         });
 
-        var text = new Surface({
+        var subText = new Surface({
             content: 'size: ' + JSON.stringify(size) + '<br>desc: ' + text,
             properties: {
                 color: 'white',
@@ -63,7 +61,7 @@ define(function(require) {
         var renderNode = new RenderNode(modifier);
         renderNode.add(back);
         renderNode.add(image);
-        renderNode.add(text);
+        renderNode.add(subText);
         renderables.push(renderNode);
     }
 
