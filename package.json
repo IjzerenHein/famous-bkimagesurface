@@ -36,8 +36,6 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
-    "browserify": "latest",
-    "deamdify": "latest",
     "grunt": "latest",
     "grunt-eslint": "latest",
     "grunt-jscs": "latest",
