@@ -119,9 +119,5 @@ According to your liking you can choose to use either the Mode-definitions or CS
 
 Feel free to contribute to this project in any way. The easiest way to support this project is by giving it a star.
 
-## Contact
-- 	@IjzerenHein
-- 	http://www.gloey.nl
-- 	hrutjes@gmail.com
 
 © 2014 - Hein Rutjes
